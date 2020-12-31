@@ -1,0 +1,112 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTION OF EACH FILE INCLUDED IN "lab4b-605124511.tar.gz":
+--> lab4b.c
+        A C source file for an embedded application that builds and runs on a beaglebone equipped
+        with a temperature sensor and button. This source file builds to create the executable 
+        "lab4b", which reports intermittent temperature readings of the external environment and
+        implements the features described in the "features" section of this README file.
+
+--> Makefile
+        A makefile to build and test the "lab4b" executable. This makefile implements the following
+        targets:
+                "lab4b" (default target):
+                        builds the "lab4b" executable from the C source file "lab4b.c", compiling the
+                        source file with the "-Wall" and "-Wextra" options, and linking the executable
+                        with the math library. The compilation itself is performed by calling the
+                        "build.sh" script described below, which detects whether the application is
+                        running on a beaglebone system and compiles accordingly.
+
+                "check":
+                        Executes an automated smoke test of the "lab4b" executable program to ensure
+                        that the application runs with the basic required functionality and can talk
+                        to its sensors. This target performs the smoke tests by adding execution
+                        permissions to the "check.sh" script and running the "check.sh" script.
+                        The exect smoke tests are enumerated in the description of the "check.sh"
+                        script below.
+
+                "clean":
+                        Deletes the files "lab4b" and "lab4b-605124511.tar.gz".
+
+                "dist":
+                        Creates the compressed tarball "lab4b-605124511.tar.gz" that contains all of
+                        the files listed in this README.
+
+--> README
+        This file. The file you are current reading, which includes a description of each file included 
+        in the submission tarball "lab4b-605124511.tar.gz". It also includes additional comments regarding
+        the submission, such as information about research, limitations, features, and testing methodology.
+
+--> check.sh
+        A bash script invoked by the "check" target in the Makefile, which implements all of the smoke
+        tests. These tests ensure that the program has the basic functionality specified in the project
+        4b spec, including tests for the following cases:
+            recognition of bad command line options
+            recognition of bad options to "--scale=num"
+            correct return code on successful runs
+            the functionality of the '--log=logfile' option
+            the functionality of the 'SCALE=C' command
+            the functionality of the 'SCALE=F' command
+            the functionality of the 'PERIOD=num' command
+            the functionality of the 'STOP' command
+            the functionality of the 'START' command
+            the functionality of the 'LOG message' command
+            the functionality of the 'OFF' command
+            the presence and formats of temperature and time reports
+
+--> build.sh
+        A bash script that compiles the "lab4b.c" source file into the "lab4b" executable program. This
+        script is called by the "lab4b" (default) target in "Makefile". If the environment is a beaglebone,
+        then the program is compiled like normal. Otherwise, the program is compiled with the "-DDUMMY"
+        flag.
+
+
+RESEARCH SOURCES:
+--> man pages for:
+        poll
+        gettime
+        localtime
+        fcntl
+--> all code and pseudocode in the powerpoint presentation "week7-section1B-slides.pptx"
+--> The documentation on the Grove temperature sensor provided in the project spec:
+        http://wiki.seeed.cc/Grove-Temperature_Sensor_V1.2
+--> The documentation for the MRAA library provided in the project spec:
+        https://iotdk.intel.com/docs/master/mraa/
+--> the general purpose analog I/O tutorial linked in the spec:
+        https://drive.google.com/drive/folders/0B6dyEb8VXZo-N3hVcVI0UFpWSVk
+--> this documentation on the functionality of "printf":
+        https://www.codingunit.com/printf-format-specifiers-format-conversions-and-formatted-output
+
+
+FEATURES:
+        All features described in the project spect were implemented into the program, including:
+                the command line options:
+                        --period=#
+                        --log=logfile
+                        --scale=C (or --scale=F)
+                the commands to stdin:
+                        SCALE=F
+                        SCALE=C
+                        PERIOD=seconds
+                        STOP
+                        START
+                        LOG message
+                        OFF
+                communication with the following devices on the beaglebone:
+                        temperature sensor
+                        button
+
+
+LIMITATIONS:
+        No limitations relative to the descriptions in the project spec were detected at the
+        time of development.
+
+
+TESTING METHODOLOGY:
+        Most testing was conducted not on an embedded system, but rather on a PC. The program
+        was compiled with the "-DDUMMY" flag, thus employing dummy implementations of the
+        "mraa" library functions. Only after the program was fully implemented and functional on
+        a PC was it tested on the embedded system (ie beaglebone). This provided more efficient
+        testing than repeatedly transferring files to the beaglebone to be tested.
+

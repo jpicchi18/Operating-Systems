@@ -1,0 +1,92 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTION OF EACH FILE IN "lab1b.tar.gz":
+    "lab1b-client.c":
+            A C source module that compiles cleanly into the executable "lab1b-client",
+            which implements the client side of the pogram. The compiled client module
+            connects with the server module via a socket over the network, and it sends
+            data back and forth until one of several terminating events is encountered.
+            This program has all functionality specified in the project 1b spec, including:
+                --> "--compress": compresses data before sending it to the server, and
+                                 decompresses data after recieving it from the server.
+                --> "--port=num": a required flag that specifies the port number onto which
+                                the client should connect the socket.
+                --> "--log=filename": specifies a file to which a log will be written of all
+                                data transfered to and from the server over the network.
+                --> "--host=hostname": allows the user to specify a particular hostname
+                                if the server program is running on a different machine.
+                --> "--debug" : an optional flag that prints additional debugging messages
+                                to stderr for the purposes of program development.
+
+    "lab1b-server.c":
+            A C source module that compiles cleanly into the executable "lab1b-server",
+            which implements the server side of the program. The compiled server module
+            connects with the client via a socket over the network, and sends data back
+            and forth until one of several terminating sequences is encountered.
+            This has all functinoaly specified in the project 1b specification, including:
+                --> "--compress": compresses data before sending it to the client, and
+                                 decompresses data after recieving it from the client.
+                --> "--port=num": a required flag that specifies the port number onto which
+                                the server should connect the socket.
+                --> "--debug" : an optional flag that prints additional debugging messages
+                                to stderr for the purposes of program development.
+
+    "Makefile":
+            A Makefile to with several targets to build the client and server programs,
+            clean the working directory, and create a tarball to distribute the files.
+            The Makefile contains the following targets:
+                --> "default"
+                            Lists "lab1b-client" and "lab1b-server" as dependencies.
+                --> "lab1b-client"
+                            Compiles the "lab1b-client.c" source module using the
+                            flags "-Wall", "-Wextra", and "-lz".
+                --> "lab1b-server"
+                            Compiles the "lab1b-server.c" source module using the
+                            flags "-Wall", "-Wextra", and "-lz".
+                --> "clean"
+                            Removes the files "lab1b-605124511.tar.gz", "lab1b-client",
+                            and "lab1b-server" from the working directory.
+                --> "dist"
+                            Creates a compressed tarball containing the all of the
+                            files listed in this "README".
+
+    "README"
+            This file, which contains a description of the contents of the tarball
+            "lab1b-605124511.tar.gz" and all of its constituent programs.
+
+
+RESEARCH SOURCES:
+    - Man pages for:
+        - "creat"
+        - "getopt_long"
+        - "zlib"
+        - "poll"
+        - "read"
+        - "write"
+        - "open"
+        - "waitpid"
+        - "socket"
+        - "ulimit"
+    - The zlib tutorial listed on the spec at https://www.zlib.net/zlib_how.html
+    - The socket programming tutorial listed on the spec at https://www.google.com/ \
+        url?q=http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html&sa=D&ust=147 \
+        5268381481000&usg=AFQjCNGfVN0HaE_dqGa5twvmuq46llwElA
+
+
+ADDITIONAL FEATURES:
+    Apart from those listed in the spec, the additional features of the client include a "--debug"
+    flag that prints helpful debugging messages for the purpose of program development, as well
+    as a "--host=hostname" flag that allows the user to specify a host in the case that the server
+    is running on a different machine on the network (ie not "localhost").
+
+    The only additional feature of the server is a "--debug" flag that prints helpful debugging
+    messages for the purpose of program development.
+
+
+TESTING METHODOLOGY:
+    I tested the program incrementally with each development/added feature so as to ensure that
+    there were no outstanding bugs at any one phase of the program's evolution. Much of this
+    debugging was facilitated by the incorporation of a "--debug" flag in both the server
+    and client programs that printed helpful messages to stderr in order to track down
+    phases of program execution.

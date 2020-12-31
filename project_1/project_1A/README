@@ -1,0 +1,60 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTION OF EACH FILE IN "lab1a.tar.gz":
+
+    "lab1a.c":
+        A C source module that compiles cleanly into the executable "lab1a". This file contains the full
+        functionality specified in the project 1A specification, including:
+            --> character-at-a-time, full duplex I/O when no option is passed
+            --> passing input and output between the program and a child shell when the "--shell=program"
+                option is passed
+            --> error checking for all system calls and unrecognized arguments
+
+    "Makefile":
+        A makefile that builds the "lab1a" executable, compiling it with the flags "-Wall" and "-Wextra".
+        The targets specified in "Makefile" are the following:
+            --> default:
+                    Lists "lab1a" as a dependency.
+            --> lab1a:
+                    Builds the "lab1a" executable, compiling "lab1a.c" with the "-Wall" and "-Wextra"
+                    options.
+            --> clean:
+                    Removes "lab1a" executable and "lab1a-605124511.tar.gz" files from the directory.
+            --> dist:
+                    Creates a compressed tarball containing the files "lab1a.c", "Makefile", and "README".
+                    
+    "README":
+        This file. Contains a description of each file included in "lab1a-605124511.tar.gz", as well as
+        additional information relevant to the submission.
+
+
+RESEARCH SOURCES:
+    The following are the documentation sources I used as references to create my submission:
+        --> linux man pages for:
+                getopt_long
+                atexit
+                write
+                read
+                signal
+                poll
+                waitpid
+                fork
+                pipe
+        --> skeleton code in the PowerPoint file "Discussion1B_Week3" on slides 5, 6, 8, 11, 13, 15, 21,
+            22, 23, 24, and 26.
+
+
+FEATURES:
+    The basic behavior of the program when no options are passed is character-at-a-time, full duplex I/O.
+    When the "--shell=program" option is passed, the program passes input and output between itself
+    a child shell.
+    One additional feature was added: when the "--debug" flag is passed, a "(k)" symbol is printed before
+    every character recieved from the keyboard, a "(s)" symbol is printed before every character
+    recieved from the child shell, and the reason for the termination of the child shell and program is
+    printed to stderr before the program terminates.
+
+
+TESTING METHODOLOGY:
+    Most of the testing process was facilitated by the use of the afforementioned "--debug" flag that
+    indicates whether the printed characters were recieved from the child shell or the keyboard.

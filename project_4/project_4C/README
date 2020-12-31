@@ -1,0 +1,88 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTIONS OF FILES INCLUDED IN "lab4c.tar.gz":
+
+--> lab4c_tcp.c
+        A C source module that implements Part 1 of Project 4C. In other words, when compiled by the
+        Makefile into the executable "lab4c_tcp", this program communicates with the logging server
+        via a TCP connection, accepting commands from the socket, sending output to the socket, and
+        sending output to a logfile.
+
+--> lab4c_tls.c
+        A C source module that implements Part 2 of Project 4C. In other words, when compiled by the
+        Makefile into the executable "lab4c_tls", this program performs the same functionality as
+        "lab4c_tcp", except that it does so through an encrypted SSL/TLS connection as opposed to an
+        unprotected TCP connection.
+
+--> Makefile:
+        Builds the applications and performs other functions related to program compilation and development.
+        This Makefile includes the following targets:
+            --> default:
+                    Adds execution priveleges and runs the script "build.sh".
+            --> clean:
+                    deletes all programs and output created by the Makefile and restores the current working
+                    directory to its freshly untarred state. In other words, this target removes
+                    "lab4c-605124511.tar.gz", "lab4c_tcp", and "lab4c_tls" from the directory.
+            --> dist:
+                    creates a compressed tarball called "lab4c-605124511.tar.gz", which contains all of
+                    the files described in this "README".
+
+--> README:
+        This file: the file you are currently reading. This README contains a description of all of the
+        files contained in the program tarball, as well as descriptions of additional functionality and
+        characteristics associated with both the program itself and the program's development process.
+
+--> build.sh:
+        A bash script designed to compile the "lab4c_tcp" and "lab4c_tls" programs. If the script
+        is run on a beaglebone, the script detects this and compiles the programs without the "-DDUMMY"
+        flag. Otherwise, the programs are compiled with the "-DDUMMY" flags.
+
+
+RESEARCH:
+--> this documentation provided in the Project 4C spec that provides an overview of the openSSL library:
+    https://www.openssl.org/docs/manmaster/man7/ssl.html
+--> all slides in the powerpoint presentation "Discussion_Week9", which was provided on the CCLE course
+    website.
+--> man pages for:
+        SSL_shutdown
+        SSL_free
+        SSL_new
+        SSL_set_fd
+        SSL_connect
+        SSL_library_init
+        SSL_load_error_strings
+        SSL_add_all_algorithms
+        SSL_CTX_new
+--> questions and comments on Piazza for CS 111
+
+
+FEATURES:
+    All features described in the Project 4 specifications for both Part 1 and Part 2 were implemented
+    in the programs.
+
+
+LIMITATIONS:
+    The only known limitation at the time of submission is the following:
+    --> when compiling the program on a beaglebone, the following error message is produced with
+        regards to the "lab4c_tls" program due to the use of a deprecated function in the SSL library:
+            lab4c_tls.c: In function ‘ssl_init’:
+            lab4c_tls.c:219:5: warning: ‘TLSv1_client_method’ is deprecated [-Wdeprecated-declarations]
+                context = SSL_CTX_new(TLSv1_client_method());
+                ^~~~~~~
+            In file included from /usr/include/openssl/e_os2.h:13:0,
+                            from /usr/include/openssl/ssl.h:45,
+                            from lab4c_tls.c:20:
+            /usr/include/openssl/ssl.h:1629:1: note: declared here
+            DEPRECATEDIN_1_1_0(__owur const SSL_METHOD *TLSv1_client_method(void)) /* TLSv1.0 */
+            ^
+
+
+TESTING METHODOLOGY:
+--> Both programs are nearly identical to that implemented in project 4B, with the additional feature
+    that instead of reading/writing to stdin/stdout, the programs instead perform I/O with a server
+    and a log file, eithe through an unencrypted connection (ie "lab4c_tcp"), or through an encrypted
+    connection (ie "lab4c_tls").
+--> All initial testing was performed on my local machine by compiling with the "-DDUMMY" flag.
+--> subsequent testing was performed on lnxsrv09, then the beaglebone to ensure that performance
+    on my local machine was equivalent to that on the latter devices.

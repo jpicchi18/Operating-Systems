@@ -1,0 +1,244 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTIONS OF EACH FILE INCLUDED IN "lab2a.tar.gz":
+--> SortedList.h
+        A header file supplied on CCLE that specifies the interface for doubly linked list operations.
+
+--> SortedList.c
+        A C source module that implements the interface described in "SortedList.h", namely
+        methods to insert, delete, look up, and count items in a doubly linked list. This module
+        also contains "yield" calls that exacerbate existing race conditions.
+
+--> lab2_list.c
+        A C source module that supplies a variety of command line options to test race conditions
+        associated with the linked list operations described in "LinkedList.h". This module
+        compiles into the executable "lab2_list", which offers the following options:
+            a "--threads" flag to specify the number of threads that perform concurrent operations
+            on the list.
+            a "--iterations" flag to specify the number of iterations over which LinkedList operations
+            are performed.
+            a "--yield" flag to trigger the yield system calls in "SortedList.c"
+            a "--sync" flag to invoke the mutex lock and spinlock synchronization mechanisms.
+            a "--lists" option to specify the numer of sublists into which linked list elements
+            can be placed in order to provide finer granularity of locking regions.
+
+--> Makefile
+        A makefile containing the following targets:
+        --> lab2_list (default):
+                The default target that compiles "lab2_list.c" into the executable "lab2_list" using
+                the "-Wall" and "-Wextra" options. While building the program, the "-lpthread" and
+                "-lprofiler" flags link the executable with its requisite libraries.
+        --> tests:
+                Runs the test cases specified in the project spec and implemented in the "test_cases.sh"
+                script to populate the "lab2b_list.csv" data file. In doing so, this target specifies
+                "lab2_list" as a dependency.
+        --> profile:
+                Uses "gperftools" optimization tools to populate the file "profile.out" that contains
+                (1) an analysis of the which functions in the "lab2_list" executable consume the most
+                CPU time, and (2) which code lines in the file "lab2_list.c" consume the most CPU time,
+                where these lines fall within the function "threads_work", which is the most CPU-time-
+                intensive function in the program.
+        --> graphs:
+                Uses gnuplot and the file "lab2b.gp" to generate the graphs described in
+                the project spec (ie the ".png" files described in this README). This target
+                specifies "tests" as a dependency.
+        --> clean:
+                Deletes the files "lab2b-605124511.tar.gz", "lab2_list", and "./raw.gperf" from
+                the working directory.
+        --> dist:
+                Compresses all of the files described in this readme into a tarball named
+                "lab2b-605124511.tar.gz".
+
+--> lab2b_list.csv:
+        The csv data file containing the output of all of the test cases enumerated in the
+        "test_cases.sh" script. This data is used to generate the graphs mentioned in the project
+        spec (ie all of the ".png" files).
+
+--> profile.out
+        The output of the "profile" target in the Mafefile, which contains (1) an analysis of the
+        which functions in the "lab2_list" executable consume the most CPU time, and (2) which
+        code lines in the file "lab2_list.c" consume the most CPU time, where these lines fall within
+        the function "threads_work", which is the most CPU-time-intensive function in the program.
+
+--> lab2b_1.png
+        A graph generated from "lab2b_list.csv" and "lab2b.gp" that depicts the throughput (ie number
+        of operations per second) versus the number of threads when "lab2_list" is invoked with both
+        mutex and spinlock synchronization.
+
+--> lab2b_2.png
+        A graph generated from "lab2b_list.csv" and "lab2b.gp" that depicts the mean time per mutex
+        wait and mean time per operation for mutex-synchronized list operations.
+
+--> lab2b_3.png
+        A graph generated from "lab2b_list.csv" and "lab2b.gp" that depicts the existence of successful
+        iterations versus the number of threads for runs of "lab2_list" that are unprotected,
+        mutex-synchronized, and spinlock-synchronized.
+
+--> lab2b_4.png
+        A graph generated from "lab2b_list.csv" and "lab2b.gp" that depicts the throughput (ie number
+        of operations per second) versus the number of threads for mutex-synchronized runs of "lab2_list"
+        invoked with varying numbers of sublists (ie varying arguments to "--lists").
+
+--> lab2b_5.png
+        A graph generated from "lab2b_list.csv" and "lab2b.gp" that depicts the throughput (ie number
+        of operations per second) versus the number of threads for spinlock-synchronized runs of
+        "lab2_list" invoked with varying numbers of sublists (ie varying arguments to "--lists").
+
+--> README:
+        The file you are currently reading, which includes descriptions of all of the files
+        included in the "lab2b-605124511.tar.gz" tarball, answers to the questions in the project 2B
+        spec, and additional features of my submission and it's development/research process.
+
+--> test_cases.sh:
+        A bash script containing all of the test cases specified in the project 2B spec that are
+        required to generated the afforementioned graphs (ie ".png" files). These include different
+        invocatons of the "lab2_list" executable with varying inputs for "--lists", "--yield",
+        "--threads", and "--iterations".
+
+--> lab2b.gp:
+        A gnuplot script that is called by the Makefile to generate all of the afformentioned graphs
+        (ie ".png" files) using the data in "lab2b_list.csv".
+
+
+RESEARCH SOURCES:
+--> man pages for:
+        malloc
+        free
+        pthread_create
+        pthread_join
+--> all discussion slides and pseudocode from the "week6-section1B-slides.pptx" powerpoint presentation
+    posted on CCLE.
+--> The "gperftools" public github repository located at https://github.com/gperftools/gperftools 
+--> This tutorial on how to use gperftools: https://gperftools.github.io/gperftools/cpuprofile.html 
+--> piazza
+--> the gnuplot scripts "lab2_add.gp" and "lab2_list.gp" as reference files to create "lab2b.gp".
+--> week 4 readings from the course textbook for information on the pthread API.
+
+
+FEATURES:
+All features specified in the spec have been incorporated into the "lab2_list" program, with no
+prevalent extra features added by intention. The included features include the following options:
+    a "--threads" flag to specify the number of threads that perform concurrent operations
+    on the list.
+    a "--iterations" flag to specify the number of iterations over which LinkedList operations
+    are performed.
+    a "--yield" flag to trigger the yield system calls in "SortedList.c"
+    a "--sync" flag to invoke the mutex lock and spinlock synchronization mechanisms.
+    a "--lists" option to specify the numer of sublists into which linked list elements
+    can be placed in order to provide finer granularity of locking regions.
+
+
+LIMITATIONS:
+No obvious limitations, since all features specified in the spec are implemented.
+
+
+TESTING METHODOLOGY:
+All files were developed on my local PC, copied via "scp" to the seasnet lnxsrv09, and tested on
+the seasnet server. Thus, all graphs, profiling, and miscellaneous data were generated on lnxsrv09.
+This methodology was performed in order to mitigate errors that may be specified to the lnxsrv09
+computing evnrionment, as well as to use higher-performance computing to generate more accurate
+data for my files and graphs.
+
+
+ANSWERS TO PROJECT QUESTIONS:
+
+--> QUESTION 2.3.1 - CPU time in the basic list implementation:
+        Where do you believe most of the CPU time is spent in the 1 and 2-thread list tests ?
+        --> Most CPU time is spent executing code in the critical section (namely, executing the
+            "SortedList_insert", "SortedList_length", "SortedList_lookup", and "SortedList_delete"
+            methods), since lock contention (and thus wait time for locks) is low.
+
+        Why do you believe these to be the most expensive parts of the code?
+        --> For 1 and 2-thread tests, the critical section code is most expensive because the threads
+            experience low contention to acquire the locks, thus reducing both wait times and
+            lock-associated computational costs. This increasing the relative proportion of CPU time
+            spent performing linked list operations in the critical section code.
+
+        Where do you believe most of the CPU time is being spent in the high-thread spin-lock tests?
+        --> Most CPU time is spent performing the useless "spinning" task, since high contention leads
+            to long wait times to acquire the lock. This wait time is spent continually "spinning"
+            by checking certain conditions until the lock becomes available.
+
+        Where do you believe most of the CPU time is being spent in the high-thread mutex tests?
+        --> Since the threads experience high contention and long wait times to acquire the lock,
+            most CPU time is spent performing lock-related mutex methods, such as brief spinning
+            phases, putting threads to sleep, managing threads in a queue, waking threads, and
+            transferring locks between threads. These overhead costs explain the negative slope of
+            the mutex curve in "lab2b_1.png".
+
+
+- QUESTION 2.3.2 - Execution Profiling:
+        Where (what lines of code) are consuming most of the CPU time when the spin-lock version of
+        the list exerciser is run with a large number of threads?
+        --> The lines consuming the most code are those that perform this operation:
+                while (__sync_lock_test_and_set(&long_lock, 1));
+            Specifically, the most-time consuming lines are those that perform the above locking
+            operation just before the "SortedList_insert" and "SortedList_lookup" methods, which
+            makes sense because the lock operation is performed for every iteration of these methods
+            (whereas "SortedList_length" is called only once per thread, so the lock operation is
+            called only once for this method).
+
+        Why does this operation become so expensive with large numbers of threads?
+        --> Large numbers of threads leads to high lock contention, which means that threads must
+            wait (ie spin) for long periods of time in the spinning operation until the lock is
+            finally available. These spin operations consume CPU cycles for long periods of time,
+            which explains why the locking code consumes the most CPU time.
+
+
+--> QUESTION 2.3.3 - Mutex Wait Time:
+    Look at the average time per operation (vs. # threads) and the average wait-for-mutex time
+    (vs. #threads). Why does the average lock-wait time rise so dramatically with the number of
+    contending threads?
+    --> More threads means that there are more entities competing to get the limited lock resource
+        at any one time, so more threads will be trapped in a waiting state and each thread
+        in the waiting state will have a longer waiting time compared to trials with fewer threads.
+        These two factors collectively drive up the average waiting time at a dramatic rate.
+
+    Why does the completion time per operation rise (less dramatically) with the number of contending
+    threads?
+    --> Completion time per operation rises because increased thread counts leads to increased
+        OS-related overhead (e.g. context switches and thread management operations). Completion
+        time per operation rises less dramatically because there is always at least one thread
+        performing its operations and making progress, and because the time it takes for any one
+        thread to complete a given linked list operation is relatively constant (when the number
+        of sublists is kept constant).
+
+    How is it possible for the wait time per operation to go up faster (or higher) than the completion
+    time per operation?
+    --> The primary factor contributing to the rise in completion time per operation is the increase in
+        OS-related overhead (eg context switches and thread management operations), whereas the primary
+        factors contributing to the rise in wait time per operation are the increased number of threads
+        simultaneously waiting and the increased waiting periods for each of these queued threads as they
+        wait for large amounts of other threads to complete their operations. OS-related overhead
+        increases at a much slower rate compared to the increase in the number of simultaneously waiting
+        threads and the increase in their individual wait times, thus contributing to a faster rise
+        in wait time per operation compared to completion time per operation.
+
+
+QUESTION 2.3.4 - Performance of Partitioned Lists
+    Explain the change in performance of the synchronized methods as a function of the number of lists.
+    --> As the number of lists increases, the performance (as quanitified by the aggregate throughput)
+        improves significantly.
+
+    Should the throughput continue increasing as the number of lists is further increased? If not, 
+    explain why not.
+    --> The throughput will cease to increase at some point because because, once the number of lists
+        is large enough, each linked list element will be placed in its own list with its own lock,
+        so there will be extremely no lock contention (apart from that caused by the
+        LinkedList_length method that requires a thread to acquire all locks in my implementation). Since
+        this condition remains true for increased numbers of lists beyond this threshhold number, the
+        throughput will eventually level off.
+
+    It seems reasonable to suggest the throughput of an N-way partitioned list should be equivalent to
+    the throughput of a single list with fewer (1/N) threads. Does this appear to be true in the above 
+    curves? If not, explain why not.
+    --> This does not appear to be true based on graphs "lab2b_4.png" and "lab2b_5.png". For example,
+        by looking at the graphs we see that an 8-way partitioned list (red line) with 8 threads has
+        a higher throughput than a single list with 1 thread, though the phenomenon is approximately
+        true for small values of N (eg N=4). This makes sense because a single list has a larger
+        critical section (i.e. the list is longer, so each operation takes a longer time to traverse
+        the list and perform the desired functionality), so each linked list operation takes a longer
+        time to complete. In contrast, an N-partitioned list has smaller critical sections (i.e. each
+        sublist is shorter, so the LinkedList operations don't have to traverse as far), thus resulting
+        in faster linked list operations and higher throughput.

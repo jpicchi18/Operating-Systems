@@ -1,0 +1,45 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+
+BEAGLEBONE SERIAL NUMBER:   BBGW19010364
+WIFI MAC ADDRESS:           2CF7F106A140
+
+DESCRIPTION OF THE FILES IN "lab4a.tar.gz":
+    
+    "my_beaglebone.png"
+            A selfie of me holding my assembled beaglebone, showing the front
+            of the beaglebone board, as the beaglebone is connected via USB
+            to my computer.
+
+    "connected.png"
+            A screenshot from a USB terminal command session on my beaglebone, which
+            indicates that I changed the name of the beaglebone and configured 
+            network access by connecting it to my home WIFI.
+
+    "copy.png"
+            A screenshot from a local terminal command session in which I copied
+            a trivial hello world program called "hello_world.c" from my laptop
+            to my beaglebone.
+        
+    "build_run.png"
+            A screenshot from a WIFI SSH session in which I built the trivial
+            hello world program using "gcc" and ran the program on the
+            beaglebone.
+
+    "git.png"
+            A screenshot from a WIFI SSH session in which I installed the "git"
+            version control software using the commands "sudo apt-get update" and
+            "sudo apt-get install", and I cloned a repository called "test_repo"
+            to my beaglebone.
+
+    "Makefile" 
+            A makefile containing the following targets:
+                "dist"
+                    creates the tarball "lab4a-605124511.tar.gz", which contains all
+                    of the files described in this README.
+                "clean"
+                    removes the tarball "lab4a-605124511.tar.gz".
+
+    "README"
+            The file you are currently reading.

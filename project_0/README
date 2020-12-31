@@ -1,0 +1,109 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+
+contents of "lab0.tar.gz":
+
+	 "lab0.c":
+		The C source module that compiles into the "lab0" executable. This
+		file implements a program that reads from file descriptor 0 and writes
+		to file descriptor 1, with additional functionalities as described
+		here:
+			"--input=filename"
+				Uses "filename" as the program's input, making
+				"filename" the new file descriptor 0.
+			"--output_filename"
+				Creates a file with the name "filename" and uses it as
+				standard output, making "filename" the new file
+				descriptor 1.
+			"--segfault"
+				Causes the program to run a subroutine that triggers
+				a segmentation fault by attempting to dereference a
+				NULL pointer.
+			"--catch"
+				If specified along with "--segfault", this flag
+				registers a SIGSEGV handler that catches the
+				segmentation fault and outputs a customized error
+				message to stderr.
+				If specified without "--segfault", this flag has no
+				effect.
+
+	"Makefile":
+		The Makefile that for the contents of the tarball that contains the
+		following targets:
+			  "default"
+				Compile "lab0.c" into the executable "lab0" using the
+				flags "-Wall" and "-Wextra" for error checking.
+			  "check"
+				"lab0" is a dependency.
+				Runs the script "check.sh", which performs a series
+				of smoke tests for the "lab0" program.
+			  "clean"
+				Retores the directory to its original, freshly-untarred
+				condition.
+				Removes the files "lab0" and "lab0-605124511.tar.gz"
+			  "dist"
+				Creates the compressed tarball "lab0-605124511.tar.gz"
+
+	"backtrace.png"
+		A screenshot of a gdb session in which a segmentation fault was
+		triggered using the "--segfault" option with the "lab0" executable,
+		and a stack backtrace was performed.
+
+	"breakpoint.png"
+		A screenshot of a gdb session in which a breakpoint was set at the
+		line in the "lab0.c" code where a null pointer is dereferenced,
+		the program was run to that breakpoint, and the value of the NULL
+		pointer was printed to the terminal.
+
+	"README"
+		The file you are currently viewing.
+
+	"check.sh"
+		a bash script that is called by "Makefile" when the "check" target is
+		initiated.
+		Performs 7 smoke tests to verify basic functionalities of the "lab0"
+		program.
+
+		The smoke-test cases are the following:
+
+		    CASE 1: successful I/O test with "--input" and "--output":
+		    	 Verifies successful reading from a valid input file specified
+			 with "--input" and successful writing to a valid output file
+			 specified with "--output".
+			 Tests the case when the only options specified are "--input"
+			 and "--output".
+			 
+		    CASE 2: successful I/O test with stdin and stdout:
+		    	 Verifies successful reading from stdin and writing to stdout
+			 when no option flags are specified.
+			 
+		    CASE 3: unrecognized arguments
+		    	 Verifies correct error code and the output of a usage statement
+			 when an invalid option is specified.
+
+		    CASE 4: invalid input file
+		    	 Verifies correct return code and error statement when a
+			 nonexistant input file is specified with "--input"
+
+		    CASE 5: invalid output file
+		    	 Verifies correct return code and error statement when an
+			 output file with no access permissions is specified with
+			 "--output"
+
+		    CASE 6: taking a segfault
+		    	 Verifies correct return code and error statement when
+			 the program takes a segfault due to the presence of the
+			 "--segfault" flag.
+
+		    CASE 7: catching a segfault
+		    	 Verifies correct return code and error statement when
+			 the "--catch" option is specified along with the
+			 "--segfault" option.
+
+references:
+
+	the skeleton code in "Discussion1B_Week1.pptx" on CCLE, specifically the code
+	on slides 11, 12, 13, 15, and 18.
+
+	man pages for "getopt_long", "read", "write", and "creat".

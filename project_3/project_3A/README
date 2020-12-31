@@ -1,0 +1,76 @@
+NAME: Joseph Picchi
+EMAIL: jpicchi22@g.ucla.edu
+
+DESCRIPTION OF ALL FILES INCLUDED IN "lab3a.tar.gz":
+
+--> lab3a.c
+        A C source module that compiles into the executable "lab3a" and implements the program specified
+        in the project 3A spec. This program summarizes takes as input an EXT2 image file, and it produces a
+        summary of the contained EXT2 file system inside. The summary is formatted as lines of comma 
+        separated values, and it contains the following information:
+            --> superblock summary ... information about key overarching file system parameters
+            --> group summary ... information about each block group in the file system
+            --> free block entires ... a report of each free block in the file system, based on readings
+                                        of the free block bitmap
+            --> free inode entries ... a report of each free inode in the file system, based on readings
+                                        of the free inodes bitmap
+            --> I-node summary ... key information about each allocated inode in the system
+            --> directory entries ... key information about each entry in a given directory
+            --> indirect block references ... key information about each of the blocks pointed to by
+                                                allocated indirect blocks in the file system
+
+--> ext2_fs.h
+        A simplified version of a Linux header file that defines the format of the EXT2 file system. This
+        contains many of the data structures and macros employed in the "lab3a.c" program implementation.
+
+--> Makefile
+        A Makefile to build and run the program. This Makefile includes the following targets:
+            --> lab3a (default)
+                    compiles and builds the "lab3a" executable using "gcc" and the "-Wall" and "-Wextra"
+                    options. It requires "lab3a.c" and "ext2_fs.h" as file dependencies.
+
+            --> dist 
+                    builds the compressed tarball "lab3a-605124511.tar.gz" that contains the files described
+                    in this README.
+
+            --> clean
+                    removes the files "lab3a-605124511.tar.gz" and "lab3a" from the current working
+                    directory.
+
+--> README
+        The file you are currently reading. It contains descriptions of the files included in the 
+        "lab3a-605124511.tar.gz" tarball, as well as descriptions of the features, testing methodology,
+        and other details relevant to the "lab3a" executable program.
+
+
+RESEARCH SOURCES:
+--> man pages for:
+        gmtime
+        struct tm
+        strftime
+
+--> all slides in the powerpoint presentation "Week-8-summer2020.pptx" on CCLE
+
+--> This webpage and its code examples, which was provided in the discussion section powerpoint:
+    http://cs.smith.edu/~nhowe/Teaching/csc262/oldlabs/ext2.html 
+
+--> This webpage, which was linked on the project 3A spec and includes comprehensive descriptions of the
+    EXT2 file system:
+    http://www.nongnu.org/ext2-doc/ext2.html#i-block 
+
+
+TESTING METHODOLOGY:
+Testing was performed initially by comparing the output of the "lab3a" executable to the contents of
+"trivial.csv". Once the program successfully produced the correct output when invoked with
+"trivial.img" as an argument, further testing was performed using the "P3A_check.sh" script to ensure
+that it properly handles single, double, and triple indirect blocks. GDB was used minimally in the
+development process as well.
+
+
+FEATURES:
+All features enumerated in the project 3A spec have been implemented, with no additional features added
+by intention.
+
+
+LIMITATIONS:
+No limitations in the program implementation were evident to me at the time of submission.
