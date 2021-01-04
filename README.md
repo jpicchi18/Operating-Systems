@@ -5,7 +5,7 @@ All projects were implement in the C programming language and contain a Makefile
 The full details of each project can be seen in their respective "README" files.
 
 
-[warmup project](https://github.com/jpicchi18/operating_systems/tree/main/project_0):
+[Project 0: Warmup Project](https://github.com/jpicchi18/operating_systems/tree/main/project_0):
 - Implemented a program that takes a variety of command line options and reads from stdin/writes to stdout.
 - Depending on the options passed, the program also has the capability of reading input from a file, writing output to a file, generating a segfault, and catching a segfault using a signal handler.
 
@@ -28,4 +28,15 @@ The full details of each project can be seen in their respective "README" files.
   - "--host=hostname" --> allows the user to specify a particular hostname if the server program is running on a different machine.
   - "--debug" --> provides additional debugging dialog for program development
 
-
+[Project 2A: Races and Synchronization](https://github.com/jpicchi18/operating_systems/tree/main/project_2/project_2A):
+- analyzing conflicting read-modify-write operations on a single variable and complex data structures (an ordered linked list)
+- this project consists of 2 parts:
+  1. updates to a shared variable
+    - wrote a multithreaded application (using pthreads) that performs parallel updates to a shared variable.
+    - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
+    - executed performance instrumentation and measurement
+  2. updates to a shared complex data structure
+    - implemented a linked list data structure
+    - wrote a multi-threaded application, using pthread that performs, parallel updates to a sorted doubly linked list data structure
+    - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
+    - executed performance instrumentation and measurement
