@@ -40,7 +40,7 @@ The full details of each project can be seen in their respective "README" files.
       - wrote a multi-threaded application, using pthread that performs, parallel updates to a sorted doubly linked list data structure
       - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
       - executed performance instrumentation and measurement
-- modeled all results using Gnuplot scripts to graph results
+- modeled performance results using Gnuplot scripts to generate graphs
       
 [Project 2B: Lock Granularity and Performance](https://github.com/jpicchi18/operating_systems/tree/main/project_2/project_2B):
 - executed performance instrumentation and measurement to confirm that mutex and spin-lock are bottlenecks, preventing parallel access to the linked list
