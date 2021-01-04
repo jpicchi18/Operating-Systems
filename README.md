@@ -32,11 +32,16 @@ The full details of each project can be seen in their respective "README" files.
 - analyzing conflicting read-modify-write operations on a single variable and complex data structures (an ordered linked list)
 - this project consists of 2 parts:
   1. updates to a shared variable
-    - wrote a multithreaded application (using pthreads) that performs parallel updates to a shared variable.
-    - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
-    - executed performance instrumentation and measurement
+      - wrote a multithreaded application (using pthreads) that performs parallel updates to a shared variable.
+      - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
+      - executed performance instrumentation and measurement
   2. updates to a shared complex data structure
-    - implemented a linked list data structure
-    - wrote a multi-threaded application, using pthread that performs, parallel updates to a sorted doubly linked list data structure
-    - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
-    - executed performance instrumentation and measurement
+      - implemented a linked list data structure
+      - wrote a multi-threaded application, using pthread that performs, parallel updates to a sorted doubly linked list data structure
+      - addressed the race condition with different synchronization methods (e.g. spin locks, mutex locks, compare-and-swap, test-and-set)
+      - executed performance instrumentation and measurement
+- modeled all results using Gnuplot scripts to graph results
+      
+[Project 2B: Lock Granularity and Performance](https://github.com/jpicchi18/operating_systems/tree/main/project_2/project_2B):
+- executed performance instrumentation and measurement to confirm that mutex and spin-lock are bottlenecks, preventing parallel access to the linked list
+
