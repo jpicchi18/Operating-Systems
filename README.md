@@ -46,7 +46,46 @@ The full details of each project can be seen in their respective "README" files.
 - executed performance instrumentation and measurement to confirm that mutex and spin-lock are bottlenecks, preventing parallel access to the linked list
 - Implemented a new option to divide a list into sublists and support synchronization on sublists, thus allowing parallel access to the (original) list
 - took performance measurements to confirm that the problem has been solved.
-- used "gperftools" and "valgrind" measure performance (i.e. perform execution profiling) and detect memory leaks caused by parallel thread access to the linked list
+- used ```gperftools``` and ```valgrind``` measure performance (i.e. perform execution profiling) and detect memory leaks caused by parallel thread access to the linked list
 
+[Project 3A: File System Interpretation](https://github.com/jpicchi18/operating_systems/tree/main/project_3/project_3A):
+- designed and implemented a program to read the on-disk representation of a file system, analyze it, and summarize its contents
+- explored the on-disk data format of the EXT2 file system
+  - mounted a provided image file on a Linux system and explored it with familiar file navigation commands and ```debugfs(8)```
+- Wrote a program to analyze the file system in an image file and output a summary to standard out
+  - the summary describes the super block, groups, free-lists, inodes, indirect blocks, and directories).
+  - The summary is formatted as lines of comma separated values (i.e. csv files)
+ 
+[Project 3B: File System Consistency Analysis](https://github.com/jpicchi18/operating_systems/tree/main/project_3/project_3B):
+- Write a program to analyze a file system summary (a .csv file produced by Project 3A) and report on all discovered inconsistencies
+  - Detected inconsistencies are reported to standard out
+- Detected errors include the following:
+  - block consistency audits (of invalid blocks, unreferenced blocks, reserved blocks, indirect blocks, allocated blocks, etc.)
+  - inode allocation audits
+  - directory consistency audits
+  
+[Project 4A: Beaglebone Set-Up](https://github.com/jpicchi18/operating_systems/tree/main/project_4/project_4A):
+- set up a beaglebone development environment, complete with the following details:
+  - the ability to log into the beaglebone via USB and Wifi
+  - the ability to transfer files to/from the beaglebone
+  - the ability to develop and run programs on the beaglebone
+  - the ability to install new software packages on th beaglebone
 
+[Project 4B: Sensors Input](https://github.com/jpicchi18/operating_systems/tree/main/project_4/project_4B):
+- set up beaglebone input sensors and wrote a program that performed the following:
+  - uses the AIO functions of the MRAA library to get readings from a temperature sensor.
+  - samples a temperature sensor at a configurable rate (configurable with a "--period=#" option)
+  - converts the sensor value into a temperature (units of temperature are specified with a command line option)
+  - creates a report for each sample that includes:
+    - time of the sample (e.g. 17:25:58) in the local timezone
+    - a single blank/space
+    - a decimal temperature in degrees and tenths (e.g. 98.6)
+    - a newline character (\n)
+  - writes that report to the stdout (fd 1).
+  - appends that report to a logfile
+  - exits if a button attached to the beaglebone is pushed
 
+[Project 4C: Internet of Things Security](https://github.com/jpicchi18/operating_systems/tree/main/project_4/project_4C):
+- created an embedded application that extends the functionality of project 4B
+- the application accepts the same commands and generates the same reports as project 3B, but now the input and output are from/to a network connection to a server.
+- the beaglebone program features Authenticated TLS Session Encryption with the online server using the OpenSSL TLS library
