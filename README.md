@@ -44,4 +44,9 @@ The full details of each project can be seen in their respective "README" files.
       
 [Project 2B: Lock Granularity and Performance](https://github.com/jpicchi18/operating_systems/tree/main/project_2/project_2B):
 - executed performance instrumentation and measurement to confirm that mutex and spin-lock are bottlenecks, preventing parallel access to the linked list
+- Implemented a new option to divide a list into sublists and support synchronization on sublists, thus allowing parallel access to the (original) list
+- took performance measurements to confirm that the problem has been solved.
+- used "gperftools" and "valgrind" measure performance (i.e. perform execution profiling) and detect memory leaks caused by parallel thread access to the linked list
+
+
 
